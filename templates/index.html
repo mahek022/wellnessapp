@@ -6,13 +6,6 @@
     <title>Blank Page</title>
 </head>
 <body>
-    <form method="post" action="/">
-    <ul>
-    {% for task in tasks %}
-    <li><input type="checkbox" name="task" value="{{ task['title'] }}">{{ task["title"] }}</li>
-    {% endfor %}
-</ul>
-<input type="submit" value="Completed"/>
-    </form>
+    <h1>Welcome to Flask Web App</h1>
 </body>
 </html>

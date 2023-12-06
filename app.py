@@ -1,19 +1,17 @@
-import os,json
+
+import os
 from flask import Flask,render_template,request, redirect,url_for,Response,jsonify,flash,send_file,session
+
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager,login_required, login_user,logout_user,current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask_admin import Admin,AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 
-from datetime import *
-from pytz import timezone
-uae = timezone('Asia/Dubai')
-
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField
-
 
 app = Flask(__name__)
 
@@ -88,7 +86,7 @@ def signup_post():
             return redirect(url_for('signup'))
 
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
-        new_user = User(username=form.username.data, password=generate_password_hash(form.password.data, method='sha256'))
+        new_user = User(username=form.username.data, password=generate_password_hash(form.password.data))
 
         # add the new user to the database
         db.session.add(new_user)
@@ -110,25 +108,4 @@ def logout():
 @login_required
 def index():
 
-    # read json file
-    with open('tasks.json') as file:
-        tasks_db = json.load(file)
-        session["pending"] = [t for t in tasks_db if t['status'] == 0]
-        
-        print(session["pending"])
-    
-    if request.method == 'POST':
-        completed = request.form.getlist('task')
-
-        for p in session["pending"]:
-            if p["title"] in completed:
-                p["status"] = 1
-
-        with open('tasks.json','w') as file:
-            json.dump(session["pending"],file,indent = 4)
-
-        with open('tasks.json') as file:
-            tasks_db = json.load(file)
-            session["pending"] = [t for t in tasks_db if t['status'] == 0]
-
-    return render_template("index.html",tasks = session["pending"])
+    return render_template("index.html")
