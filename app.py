@@ -1,5 +1,5 @@
 
-import os
+import os,re
 from flask import Flask,render_template,request, redirect,url_for,Response,jsonify,flash,send_file,session
 
 from flask_sqlalchemy import SQLAlchemy
@@ -68,7 +68,7 @@ def login():
 
 @app.route('/signup')
 def signup():
-    title = "Sign Up"
+    title = "website"
     form = SignupForm()
     return render_template('signup.html',form=form)
 
