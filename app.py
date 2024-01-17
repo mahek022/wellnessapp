@@ -13,7 +13,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "sample.db"))
@@ -108,4 +108,4 @@ def logout():
 @login_required
 def index():
 
-    return render_template("index.html")
+    return render_template("index.html",name=current_user.username)
