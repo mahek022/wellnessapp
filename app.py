@@ -109,3 +109,8 @@ def logout():
 def index():
 
     return render_template("index.html",name=current_user.username)
+@app.route('/blog',methods=['GET','POST'])
+@login_required
+def blog():
+
+    return render_template("blog.html",name=current_user.username)
