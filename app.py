@@ -1,5 +1,6 @@
 
-import os,re
+import os,re,json
+from urllib.request import urlopen
 from flask import Flask,render_template,request, redirect,url_for,Response,jsonify,flash,send_file,session
 
 from flask_sqlalchemy import SQLAlchemy
@@ -111,4 +112,32 @@ def index():
 @app.route('/blog',methods=['GET','POST'])
 def blog():
 
-    return render_template("blog.html",name=current_user.username)
+    return render_template("blog.html")
+
+@app.route('/recipes',methods=['GET','POST'])
+def recipes():
+    # url="http://api.edamam.com/api/recipes/v2?type=public&app_id=77494cab&app_key=%20234bf5bb0a16d77da6c4abdc6fd1045f&diet=balanced"
+    # recipes=urlopen(url)
+    # recipe_list=json.loads(recipes.read())
+    # print(recipe_list)
+    return render_template("recipes.html")
+
+@app.route('/sleeptracker',methods=['GET','POST'])
+def sleeptracker():
+
+    return render_template("sleeptracker.html",name=current_user.username)
+
+@app.route('/workout',methods=['GET','POST'])
+def workout():
+
+    return render_template("workout.html",name=current_user.username)
+
+@app.route('/moodtracker',methods=['GET','POST'])
+def moodtracker():
+
+    return render_template("moodtracker.html",name=current_user.username)
+
+@app.route('/todolist',methods=['GET','POST'])
+def todolist():
+
+    return render_template("todolist.html",name=current_user.username)
